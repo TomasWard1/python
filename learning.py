@@ -1,7 +1,11 @@
-#tipos de datos en pyhton joya
+#tipos de datos en pyhton
 numeroEntero = int(5)
-numeroEntero2 = int(-5) #numeros enteros (Z) pero son finitos por el limite de procesamiento de una computadora.
+numeroEntero2 = int(-5)
 numeroEntero3 = int(0)
+
+numeroFloat = float(5.3)
+
+frase = string('hola mundo')
 
 #operaciones
 def valorAbsoluto(numero):
@@ -14,13 +18,7 @@ def estamosEnClase(enClase:bool):
     else:
         return 'No estamos en clase'
 
-#PROMEDIO = TP1 * 0,2 + P1 * 0,2 + TP2 * 0,3 + P2 * 0,3
-#debe ser mayor o igual a 60 para promocionar.
-
 def promedioPonderado(TP1:int,P1:int,TP2:int,P2:int) -> int:
     return TP1 * 0.2 + TP1 * 0.2 + TP1 * 0.2 + TP1 * 0.2
 
-
 #RunTIME
-print(estamosEnClase(False))
-print(valorAbsoluto(-5))
