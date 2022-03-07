@@ -10,4 +10,4 @@ x:float = n/2
 mi:float = 50.0
 km:int = int(mi * 1.60934)
 
-#print('{} millas equivalen a {} kilómetros'.format(int(mi),km))
+print('{} millas equivalen a {} kilómetros {}'.format(int(mi),km))
