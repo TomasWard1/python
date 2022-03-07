@@ -16,4 +16,14 @@ e = round(math.e,4)
 def escribirContantes():
     print('Pi rounded is: {}, e rounded is: {}'.format(pi,e))
 
-escribirContantes()
+#escribirContantes()
+
+
+#le podes pedir input al usuario
+n = input("Please enter your name: ")
+
+def juntarStrings():
+    print('me llamo ' + n)
+
+
+juntarStrings()
