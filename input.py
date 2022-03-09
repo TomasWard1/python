@@ -1,32 +1,57 @@
-from ast import List
+from ast import List, Str
 
-
+#VARIABLES
 estadosBuenos:List = ['bien']
 estadosMalos:List = ['mal']
 estadosNormales:List = ['normal']
 
-def robot():
-    nombre = input('Como te llamas?\n')
-    print('hola {}'.format(nombre))
-    estado = input('Como estas hoy?\n')
-    for estadoEnLista in estadosBuenos:
-        if (estado.__contains__(estadoEnLista)):
-            print('Que bueno que estas bien!')
-        else:
-            for estadoEnLista in estadosMalos:
-                if (estado.__contains__(estadoEnLista) and (estado != 'normal') ):
-                    print('Que fiaca que estas mal!')
-                else:
-                     for estadoEnLista in estadosNormales:
-                        if (estado.__contains__(estadoEnLista)):
-                            print('Hmm, como podriamos mejorar tu dia?')
-                        else:
-                            tipoDeEstado = input('No reconozco este estado. Es bueno, malo, o normal (responder con b,m,n)?\n')
-                            if tipoDeEstado == 'b':
-                                estadosBuenos.append(estado)
-                            elif tipoDeEstado == 'm':
-                                estadosMalos.append(estado)
-                            elif tipoDeEstado == 'n':
-                                estadosNormales.append(estado)
+#FUNCIONES
+def queDecirAPartirDeEstado(lista:List):
+    if 'bien' in lista:
+        print('🤖 Que bueno que estas bien!')
+    elif 'mal' in lista:
+        print('🤖 Que fiaca que estas mal!')
+    elif 'normal' in lista:
+        print('🤖 Hace algo que te gusta asi te sentis bien!')
 
-robot()
+
+def agregarEstadoALista(donde:str, estado:str):
+    if donde == 'b':
+        estadosBuenos.append(estado)
+    elif donde == 'n':
+        estadosNormales.append(estado)
+    elif donde == 'm':
+        estadosMalos.append(estado)
+    else:
+        print('🤖 Porfavor responder con las letras b,n,m')
+        agregarEstadoALista(input('🤖 No Reconozco Este Estado. Es bueno, malo, o normal? Responder con: b,m,n\n'),estado)
+
+
+def chequearEstadoEnListas(estado:str, listasDeEstados:List,enListas=False):
+    lista:List = ['jiej']
+    for lista in listasDeEstados:
+        if estado in lista:
+            queDecirAPartirDeEstado(lista)
+            enListas = True
+    if enListas == False:
+      dondeAgregar = input('🤖 No Reconozco Este Estado. Es bueno, malo, o normal? Responder con: b,m,n\n')
+      agregarEstadoALista(dondeAgregar,estado)
+
+
+def robotInteligente(veces=1):
+    while veces > 0:
+        if veces == 1:
+            nombre = input('🤖Como te llamas?\n')
+            print('🤖 Hola {}, un gusto.'.format(nombre))
+
+        else:
+            if veces >= 2:
+                 print('-----------\n🤖 Comenzemos de nuevo\n----------------')
+        
+        estado = input('🤖 Como estas hoy?\n')
+        chequearEstadoEnListas(estado,[estadosBuenos,estadosMalos,estadosNormales],False)
+        veces+=1
+
+
+#RUN
+robotInteligente(1)
