@@ -83,5 +83,5 @@ def perimetroRectangulo(ax:float,ay:float,bx:float,by:float):
         perimetro:float = (distanciaX+distanciaY)*2
         print(perimetro, 'es el perimetro')
 
-perimetroRectangulo(2,3,3,1)
+perimetroRectangulo(-2,3,3,1)
 
