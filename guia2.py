@@ -1,4 +1,8 @@
 #Ejercicio 1a
+from re import I
+import math
+
+
 def f(x:int) -> int:
     x = x + 1
     return x
@@ -26,7 +30,22 @@ def f2c(f:float) -> float:
     c = (f - 32)*(5/9)
     return c 
 
-print(f2c(195))
+# print(f2c(195))
 
+
+#Ejercicio 3
+def combinatorio(n:int,k:int) -> int:
+    if n >= 0 and k >= 0 and k <= n:
+        nFactorial:int = math.factorial(n)
+        kFactorial:int = math.factorial(k)
+        differenciaFactorial:int = math.factorial(n-k)
+    
+        combinatorio:int = nFactorial/(kFactorial*differenciaFactorial)
+        print('El combinatorio nCk es {}'.format(int(combinatorio)))
+    else:
+        print('no se puede calcular el combinatorio')
+
+
+combinatorio(10,4)
 
 
