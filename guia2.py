@@ -46,6 +46,17 @@ def combinatorio(n:int,k:int) -> int:
         print('no se puede calcular el combinatorio')
 
 
-combinatorio(10,4)
+def parteEnteraRaiz(n:int) -> int:
+    """
+    Requiere un numero entero mayor que 0, hace la raiz cuadrada y python lo redondea a int.
+
+    """
+    if n>0 or n==0:
+        parteEntera = int(math.sqrt(n))
+        math.fac
+        return parteEntera
+    else:
+        print('Ingresar un numero mayor o igual a 0')
+print(parteEnteraRaiz(6))
 
 
