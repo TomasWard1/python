@@ -57,6 +57,15 @@ def parteEnteraRaiz(n:int) -> int:
         return parteEntera
     else:
         print('Ingresar un numero mayor o igual a 0')
-print(parteEnteraRaiz(6))
+# print(parteEnteraRaiz(6))
+
+#Ejercicio 4
+def f ( s : str ) -> str :
+    if s[0]== 'A' and len (s) > 0: 
+        return ' Eureka '
+    else:
+        return ' Me aburro'
+
+print(f(''))
 
 
