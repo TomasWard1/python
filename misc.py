@@ -85,3 +85,8 @@ while puntosJugador1 != 'game' and puntosJugador2 != 'game':
     puntaje_manual()
 
 
+def cuanto_sumo_al_putaje():
+    print('hola')
+
+
+
