@@ -8,19 +8,17 @@ def obtener_clima(temp:int) -> str:
             - si es mayor a 25, devolver 'caluroso'
   '''
   frio:bool = temp <= 10
-  templado:bool = 10 < temp < 17
-  agradable:bool = 17 < temp <= 25
+  templado:bool = temp < 17
+  agradable:bool = 17 <= temp <= 25
   caluroso:bool = temp > 25
 
-  if -273 < temp < 126:
-    if frio:
+  if frio:
       return 'frio'
-    elif templado:
+  elif templado:
       return 'templado'
-    elif agradable:
+  elif agradable:
       return 'agradable'
-    elif caluroso:
+  elif caluroso:
       return 'caluroso'
-  else:
-    return 'La temperatura no esta en el rango'
+
 

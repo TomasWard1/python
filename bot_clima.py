@@ -5,6 +5,7 @@ def bot(clima:str) -> str:
   Requiere: clima == [frio|templado|agradable|caluroso]
   Devuelve: una mensaje adaptado al clima de hoy
   '''
+  print(clima)
   return 'Genial! Hoy el clima está {}. Que tengas un excelente día! :)'.format(clima)
 
 
