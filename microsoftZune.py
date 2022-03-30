@@ -28,7 +28,7 @@ def CalculateCurrentYearError(days:int) -> int:
     Devuelve : El año actual (ej: 2007). 
     '''
     year:int = ORIGINYEAR
-    while days > 365:
+    while days > 364:
         if IsLeapYear(year):
             #error: if days > 366
             #corregido:
@@ -40,4 +40,4 @@ def CalculateCurrentYearError(days:int) -> int:
             year = year + 1
     return year
 
-print(CalculateCurrentYearError(731))
+print(CalculateCurrentYearError(365))
