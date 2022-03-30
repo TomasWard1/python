@@ -12,7 +12,7 @@ estadosNormales:List = ['normal']
 def printSlow(string:str):
     for letter in string:
         print(letter,end='',flush=True)
-        sleep(0.1)
+        sleep(0.01)
 
 def queDecirAPartirDeEstado(lista:List):
     if 'bien' in lista:
