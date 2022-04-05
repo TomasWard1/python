@@ -51,7 +51,7 @@ def robotInteligente(veces=1):
 
         else:
             if veces >= 2:
-                 printSlow('-----------\n🤖 Comenzemos de nuevo\n----------------')
+                    printSlow('-----------\n🤖 Comenzemos de nuevo\n----------------')
         
         estado = input('🤖 Como estas hoy?\n')
         chequearEstadoEnListas(estado,[estadosBuenos,estadosMalos,estadosNormales],False)

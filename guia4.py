@@ -32,6 +32,7 @@ def es_polindromo(palabra:str) -> bool:
 
     return polindromo
 
+from typing import List
 import unittest
 
 # class TestPolindromo(unittest.TestCase):
@@ -131,4 +132,6 @@ def es_prefijo (s:str,t:str) -> bool :
   
   vr:bool = aux and i == len(s)
   return vr
+
+
 
