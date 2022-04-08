@@ -71,7 +71,7 @@ def separarStringconSeparador(txt:str,sep:str):
 class TestSeparador(unittest.TestCase):
     def test_punto(self):
         self.assertEqual(separarStringconSeparador('a.b.c','.'),['a','b','c'])
-    
+
     def test_coma(self):
         self.assertEqual(separarStringconSeparador('a,b,c',','),['a','b','c'])
 
@@ -80,34 +80,24 @@ class TestSeparador(unittest.TestCase):
         self.assertEqual(separarStringconSeparador('.a.b.c.','.'),['','a','b','c',''])
 
 
-#Tomemos este caso como ejemplo
-separarStringconSeparador('aaa,ajc,,b,c,dd',',')
-'''
-La consola imprime lo siguiente:
- #A
- #B
-a #C
-a #B
-aa #C
-aa #B
-aaa #C
-aaa #B
- #C
- #B
-a #C
-a #B
- #C
- #B
-b #C
-b #B
- #C
- #B
-c #C
-c #B
- #C
- #B
-d #C
-d #B
-dd #C
-dd #D
-'''
+#EJERCICIO 4 ---------------------------------
+def encontrarMesetas(lista:List[int]) -> List[List[int]]:
+    '''
+    Requiere: len(Lista[int]) > 0
+    Devuelve: List[List[int]], una lista de las mesetas contenidas en la lista inicial.
+    '''
+    i:int = 1
+    mesetas:List[List[int]] = []
+    while i < len(lista):
+        meseta:List[int] = [lista[i-1]]
+
+        while i < len(lista) and lista[i] in meseta:
+            meseta.append(lista[i])
+            i += 1
+
+        mesetas.append(meseta)
+        i += 1
+
+    return mesetas
+    
+encontrarMesetas([1,1,1,3,1,2,2,4,4,5,5,6])
