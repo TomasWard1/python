@@ -160,13 +160,12 @@ def d(n: int) -> List[int]:
     ordenados de menor a mayor.
     '''
     naturalesImpares: List[int] = []
-    numero: int = 0
     for i in range(n*2):
-        if (numero % 2 != 0):
-            naturalesImpares.append(numero)
-        numero += 1
+        if (i % 2 != 0):
+            naturalesImpares.append(i)
     return naturalesImpares
 
+print(d(4))
 
 def e(listaEnteros: List[int], n: int) -> List[int]:
     '''
@@ -224,6 +223,19 @@ def h(txt: str, sep: str) -> int:
     nuevaLista.append(slice)
     return nuevaLista
 
+
+def h2(txt: str, sep: str) -> int:
+    '''
+    Requiere: len(sep) == 1
+    Devuelve: Una lista que contiene la separacion de txt
+    a partir de sep.
+    '''
+    nuevaLista: List[str] = []
+    for slice in txt.split(sep):
+        nuevaLista.append(slice)
+    return nuevaLista
+
+print(h2('aaa;bb;c;d;',';'))
 # EJERCICIO 10-----------------------------------------------------------------------------
 
 
@@ -304,15 +316,12 @@ def primera_ocurrencia_enumerate(elem: int, ls: List[int]) -> int:
     Requiere : ls contiene al menos una ocurrencia de elem .
     Devuelve : el índice de la primera ocurrencia de elem en ls.
     '''
-
     for (i,entero) in enumerate(ls,0):
         if elem == entero:
             return i
     return i
 
-a: List[int] = [1, 2, 4, 1, 5]
-print(primera_ocurrencia_enumerate(1, a))
-print(primera_ocurrencia_enumerate(5, a))
+
 
 #EJERCICIO 13----------------------------------
 ''' 

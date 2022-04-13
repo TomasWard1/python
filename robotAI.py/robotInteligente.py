@@ -1,10 +1,10 @@
-from ast import List, Str
+from typing import List
 from time import sleep
 
 
 #VARIABLES
-estadosBuenos:List = ['bien']
-estadosMalos:List = ['mal']
+estadosBuenos:List[str] = ['bien']
+estadosMalos:List[str] = ['mal']
 estadosNormales:List = ['normal']
 
 #FUNCIONES
@@ -16,11 +16,11 @@ def printSlow(string:str):
 
 def queDecirAPartirDeEstado(lista:List):
     if 'bien' in lista:
-        printSlow('🤖 Que bueno que estas bien!')
+        printSlow('🤖 Que bueno que estas bien!\n')
     elif 'mal' in lista:
-        printSlow('🤖 Que fiaca que estas mal!')
+        printSlow('🤖 Que fiaca que estas mal!\n')
     elif 'normal' in lista:
-        printSlow('🤖 Hace algo que te gusta asi te sentis bien!')
+        printSlow('🤖 Hace algo que te gusta asi te sentis bien!\n')
 
 def agregarEstadoALista(donde:str, estado:str):
     if donde == 'b':
@@ -46,17 +46,17 @@ def chequearEstadoEnListas(estado:str, listasDeEstados:List,enListas=False):
 def robotInteligente(veces=1):
     while veces > 0:
         if veces == 1:
-            nombre = input('🤖Como te llamas?\n')
+            nombre = input('🤖 Como te llamas?\n')
             printSlow('🤖 Hola {}, un gusto.'.format(nombre))
 
         else:
             if veces >= 2:
                     printSlow('-----------\n🤖 Comenzemos de nuevo\n----------------')
         
-        estado = input('🤖 Como estas hoy?\n')
+        estado = input('\n🤖 Como estas hoy?\n')
         chequearEstadoEnListas(estado,[estadosBuenos,estadosMalos,estadosNormales],False)
         veces+=1
 
 
 #RUN
-robotInteligente(1)
+robotInteligente()
