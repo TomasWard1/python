@@ -1,0 +1,8 @@
+# defino mis variables
+i:int = 0 # índice
+cant:int = 0 # contador
+while i <= 100:
+    # Si es primo , lo imprimo !
+    if es_primo ( i ) :
+        print ( i )
+    i = i + 1

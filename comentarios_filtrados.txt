@@ -1,0 +1,8 @@
+
+i:int = 0 
+cant:int = 0 
+while i <= 100:
+    
+    if es_primo ( i ) :
+        print ( i )
+    i = i + 1

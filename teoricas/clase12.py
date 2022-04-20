@@ -1,4 +1,4 @@
-from tkinter import E
+
 from typing import List
 
 def es_primo(n:int) -> bool:
