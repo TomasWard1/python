@@ -40,7 +40,6 @@ ordenado en cada paso al par de elementos A[i] y A[i+1]. Esta pasada por toda la
 debe repetirse len(A) veces. Implementar el algoritmo en Python. ¿Por qué funciona?
 '''
 
-
 def bubble_sort(a: List[int]) -> List[int]:
     for i in range(len(a)-1):
         for j in range(len(a)-1):
@@ -131,4 +130,33 @@ def binario_a_decimal(binario:List[int]):
 (e) Dada una lista de enteros ordenada de menor a mayor, devolver True si todos sus elementos
 son positivos, o False si hay algún elemento negativo. O(1)
 '''
+def lista_positiva(lista:List[int]):
+    return lista[0] > 0
 
+'''
+(f) Dados un entero x y una lista con n listas de enteros, cada una ordenada de menor a mayor y
+con a lo sumo m elementos, calcular la cantidad de listas que contienen al entero x. O(n·log m)
+'''
+
+def lista_contiene_entero(x:int, lista: List[int]) -> bool:
+    '''
+    Requiere una lista ordenada de strings de menor a mayor
+    '''
+    inicio: int = 0
+    fin: int = len(lista)
+    while inicio < fin:
+        medio: int = (inicio + fin)//2
+        if lista[medio] == x:
+            return True
+        elif lista[medio] < x:
+            inicio = medio + 1
+        else:
+            fin = medio
+    return False
+
+def entero_en_tantas_listas(listas:List[List[int]],x:int):
+    counter:int = 0
+    for lista in listas:
+        if lista_contiene_entero(x,lista):
+            counter += 1
+    return counter
