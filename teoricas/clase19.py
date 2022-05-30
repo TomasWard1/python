@@ -27,7 +27,7 @@ def caracteres(s: str) -> Set[str]:
     Devuelve: el conjunto de los caracteres que aparecen en s.
     Ejemplo: caracteres('bananas') → {'b', 'a', 'n', 's'}
     '''
-    caracteres: Set[str] = set()
+    caracteres:Set[str] = set()
     for caracter in s:
         caracteres.add(caracter)
     return caracteres

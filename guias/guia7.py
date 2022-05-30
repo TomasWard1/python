@@ -3,7 +3,6 @@ Ejercicio 1. Se tiene un mazo de M naipes. Escribir un algoritmo que determine s
 ordenado (de menor a mayor) o no. Calcular su complejidad algorítmica (en peor caso).
 '''
 
-import enum
 import math
 from statistics import median
 from typing import List
