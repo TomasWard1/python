@@ -66,8 +66,9 @@ class CubileteDeGenerala:
 def tirada(cubilete:CubileteDeGenerala):
     dados_a_tirar:List[str] = input('Cuales dados queres volver a tirar (1-5)? Ej: 3,4\n').split(',')
 
-    for numero_dado in dados_a_tirar:
-        cubilete.dados[int(numero_dado)-1].tirar()
+    if dados_a_tirar != ['']:
+        for numero_dado in dados_a_tirar:
+            cubilete.dados[int(numero_dado)-1].tirar()
 
 def generala():
     print('\nBIENVENIDO A LA GENERALA')
@@ -79,5 +80,6 @@ def generala():
     tirada(cubilete)
     print('\n\nSu turno ha finalizado. Tus dados finales son {}\n\n'.format(cubilete))
 
-generala()
+while True:
+    generala()
     
