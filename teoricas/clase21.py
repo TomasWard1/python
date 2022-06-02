@@ -1,4 +1,4 @@
-from typing import TextIO, Set, List
+from typing import Dict, TextIO, Set, List
 import csv
 from clase20 import Fruta
 
@@ -53,7 +53,7 @@ class Catalogo:
         'primavera ', 'verano ', 'otoño ' o 'invierno ').
         '''
         self.frutas: List[Fruta] = []
-        f:TextIO = open(archivo_csv)
+        f: TextIO = open(archivo_csv)
         for linea in csv . DictReader(f):
             nombre: str = linea['nombre']
             precio: float = float(linea['precio_por_kg'])
@@ -77,4 +77,43 @@ class Catalogo:
         return str(self.frutas)
 
 
-print(Catalogo(archivo_csv='frutas.csv'))
+class Carrito:
+    def __init__(self):
+        ''' Inicializa un carrito vacío. Requiere: nada. '''
+        self.kg_fruta: Dict[Fruta, int] = dict()
+
+    def __repr__(self) -> str:
+        ''' Devuelve un string con los datos del carrito. Requiere: nada. '''
+        return str(self.kg_fruta)
+
+    def agregar(self, f: Fruta, p: int):
+        ''' Modifica: Agrega p kg de la fruta f al carrito. Requiere: p>0.'''
+        if f in self.kg_fruta:
+            self.kg_fruta[f] = self.kg_fruta[f] + p
+        else:
+            self.kg_fruta[f] = p
+
+    def sacar(self, f: Fruta, p: int):
+        ''' Modifica: Saca p kg de la fruta f del carrito.
+        Requiere: p>0, y hay al menos p kilos de f. '''
+        self.kg_fruta[f] = self.kg_fruta[f] - p
+        if self.kg_fruta[f] == 0:
+            self.kg_fruta. pop(f)
+
+    def calcular_precio_total(self) -> float:
+        ''' Devuelve: el precio total de la fruta en el carrito. Req: nada.'''
+        vr: float = 0.0
+        for fruta in self.kg_fruta:
+            peso: int = self.kg_fruta
+            vr = vr + peso*fruta.precio
+        return vr
+
+#un toque de testing.
+carro:Carrito = Carrito()
+catalogo:Catalogo = Catalogo('frutas.csv')
+carro.agregar(catalogo.frutas[0],100)
+carro.agregar(catalogo.frutas[0],4)
+carro.agregar(catalogo.frutas[3],100)
+carro.sacar(catalogo.frutas[0],100)
+
+print(carro)

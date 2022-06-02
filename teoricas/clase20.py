@@ -24,11 +24,7 @@ class Fruta:  # Definición de la clase Fruta. Typehints de la misma clase no fu
     def __lt__(self, other) -> bool:
         ''' Devuelve True si self < other; False en caso contrario.'''
         return self.precio < other.precio
-    
-    def __eq__(self, other) -> bool:
-        ''' Devuelve True si self == other; False en caso contrario.'''
-        return self.nombre == other.nombre
-
+        
     # como imprimir el objeto.
 
     def __repr__(self) -> str:
