@@ -1,7 +1,14 @@
+from time import sleep
 from naipes import Naipe, Mazo
 import random
 import math
 from typing import List, Set, Tuple
+
+
+def printSlow(string: str):
+    for letter in string:
+        print(letter, end='', flush=True)
+        sleep(0.02)
 
 # Ejercicio 1 ----------------------------------
 
@@ -76,15 +83,16 @@ def tirada(cubilete: CubileteDeGenerala):
 
 
 def generala():
-    print('\nBIENVENIDO A LA GENERALA')
+    printSlow('\nBIENVENIDO A LA GENERALA')
     cubilete: CubileteDeGenerala = CubileteDeGenerala(
         [Dado(6), Dado(6), Dado(6), Dado(6), Dado(6)])
     cubilete.tirar_todos()
-    print('\nTiro 1: ' + str(cubilete))
+    printSlow('\nTiro 1: ' + str(cubilete))
     tirada(cubilete)
-    print('\nTiro 2: ' + str(cubilete))
+    printSlow('\nTiro 2: ' + str(cubilete))
     tirada(cubilete)
-    print('\n\nSu turno ha finalizado. Tus dados finales son {}\n\n'.format(cubilete))
+    printSlow(
+        '\n\nSu turno ha finalizado. Tus dados finales son {}\n\n'.format(cubilete))
 
 # while True:
 #     generala()
@@ -97,7 +105,7 @@ mazo.agregar(Naipe(7, 'oros'))
 mazo.agregar(Naipe(1, 'espadas'))
 mazo.agregar(Naipe(12, 'copas'))
 mazo.agregar(Naipe(4, 'bastos'))
-print(mazo.naipe_mas_alto())
+# print(mazo.naipe_mas_alto())
 
 # EJERCICIO 4 ----------------------------------
 
@@ -150,48 +158,77 @@ class Tateti:
             return self.jugador2
         return self.jugador1
 
-    def hacer_movimiento(self, jugador: Tuple[str, str],bot:bool):
-        lugar_tablero:int = 0
-    
+    def lugar_esta_vacio(self, lugar: str):
+        return lugar == ' '
+
+    def indice_fila_elegida(self, posicion: int) -> int:
+        if posicion <= 3:
+            return 0
+        elif 3 < posicion <= 6:
+            return 1
+        else:
+            return 2
+
+    def pedir_lugar_tablero(self, bot: bool) -> int:
+        lugar_tablero: int = 0
         if bot:
-            lugar_tablero = random.choice([1,2,3,4,5,6,7,8,9])        
+            lugar_tablero = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9])
+            printSlow('\nEl bot eligio poner en ' + str(lugar_tablero))
         else:
-            lugar_tablero = int(input('A donde queres poner?\n\n|1|2|3|\n|4|5|6|\n|7|8|9|\n'))
+            lugar_tablero = int(
+                input('\nA donde queres poner?\n\n|1|2|3|\n|4|5|6|\n|7|8|9|\n'))
+        return lugar_tablero
 
-        if lugar_tablero <= 3:
-            self.tablero[0][lugar_tablero-1] = jugador[1]
-        elif lugar_tablero <= 6:
-            self.tablero[1][lugar_tablero-4] = jugador[1]
-        else:
-            self.tablero[2][lugar_tablero-7] = jugador[1]
-    
+    def resta_necesaria(self, i_fila: int) -> int:
+        if i_fila == 0:
+            return 1
+        elif i_fila == 1:
+            return 4
+        return 7
+
+    def hacer_movimiento(self, jugador: Tuple[str, str], bot: bool):
+        lugar_tablero: int = self.pedir_lugar_tablero(bot)
+        i_fila: int = self.indice_fila_elegida(lugar_tablero)
+        resta_necesaria: int = self.resta_necesaria(i_fila)
+        
+        # chequeamos que la posicion no este tomada, y le pedimos al bot o al usuario de elegir devuelta sino
+        while not self.lugar_esta_vacio(self.tablero[i_fila][lugar_tablero-resta_necesaria]):
+            print('\nEse lugar esta tomado, elegi devuelta')
+            lugar_tablero = self.pedir_lugar_tablero(bot)
+            i_fila = self.indice_fila_elegida(lugar_tablero)
+            resta_necesaria = self.resta_necesaria(i_fila)
+
+        i_fila = self.indice_fila_elegida(lugar_tablero)
+        resta_necesaria = self.resta_necesaria(i_fila)
+        self.tablero[i_fila][lugar_tablero-resta_necesaria] = jugador[1]
+
     def termino(self) -> bool:
-        return self.movimientos_j1 + self.movimientos_j2 == 9
-    
-    def gano_fila(self) -> Tuple[bool,str]:
-        horiz1:bool = self.fila1[0] == self.fila1[1] == self.fila1[2]
-        horiz2:bool = self.fila2[0] == self.fila2[1] == self.fila2[2]
-        horiz3:bool = self.fila3[0] == self.fila3[1] == self.fila3[2]
+        return self.ganador() != ''
 
-        return (horiz1,self.fila1[0]) or (horiz2,self.fila2[0]) or (horiz3,self.fila3[0])
-    
-    def gano_columna(self) -> Tuple[bool,str]:
-        col1:bool = self.fila1[0] == self.fila2[0] == self.fila3[0]
-        col2:bool = self.fila1[1] == self.fila2[1] == self.fila3[1]
-        col3:bool = self.fila1[2] == self.fila2[2] == self.fila3[2]
+    def gano_fila(self) -> Tuple[bool, str]:
+        horiz1: bool = (self.fila1[0] == self.fila1[1] == self.fila1[2]) and  self.fila1[0] != ' '
+        horiz2: bool = (self.fila2[0] == self.fila2[1] == self.fila2[2]) and  self.fila2[0] != ' '
+        horiz3: bool = (self.fila3[0] == self.fila3[1] == self.fila3[2])  and  self.fila3[0] != ' '
 
-        return (col1,self.fila1[0]) or (col2,self.fila1[1]) or (col3,self.fila1[2])
+        return (horiz1, self.fila1[0]) or (horiz2, self.fila2[0]) or (horiz3, self.fila3[0])
 
-    def gano_diagonal(self) -> Tuple[bool,str]:
-        diag1:bool = self.fila1[0] == self.fila2[1] == self.fila3[2]
-        diag2:bool = self.fila3[0] == self.fila2[1] == self.fila1[3]
+    def gano_columna(self) -> Tuple[bool, str]:
+        col1: bool = (self.fila1[0] == self.fila2[0] == self.fila3[0]) and self.fila1[0] != ' '
+        col2: bool = (self.fila1[1] == self.fila2[1] == self.fila3[1]) and self.fila1[1] != ' '
+        col3: bool = (self.fila1[2] == self.fila2[2] == self.fila3[2]) and self.fila1[2] != ' '
 
-        return (diag1,self.fila1[0]) or (diag2,self.fila3[0])
-    
+        return (col1, self.fila1[0]) or (col2, self.fila1[1]) or (col3, self.fila1[2])
+
+    def gano_diagonal(self) -> Tuple[bool, str]:
+        diag1: bool = (self.fila1[0] == self.fila2[1] == self.fila3[2]) and self.fila1[0] != ' '
+        diag2: bool = (self.fila3[0] == self.fila2[1] == self.fila1[2]) and self.fila3[0] != ' '
+
+        return (diag1, self.fila1[0]) or (diag2, self.fila3[0])
+
     def ganador(self) -> str:
-        gano_fila:bool = self.gano_fila()[0]
-        gano_columna:bool = self.gano_columna()[0]
-        gano_diag:bool = self.gano_diagonal()[0]
+        gano_fila: bool = self.gano_fila()[0]
+        gano_columna: bool = self.gano_columna()[0]
+        gano_diag: bool = self.gano_diagonal()[0]
 
         if gano_fila:
             return self.gano_fila()[1]
@@ -199,30 +236,39 @@ class Tateti:
             return self.gano_columna()[1]
         elif gano_diag:
             return self.gano_diagonal()[1]
+        elif self.movimientos_j1 + self.movimientos_j2 == 9:
+            return 'empate'
         else:
             return ''
-        
+
     def movimiento_bot(self):
-        self.hacer_movimiento(self.jugador2,bot=True)
+        self.hacer_movimiento(self.jugador2, bot=True)
 
     def __repr__(self) -> str:
-        return f'\n\n|{self.fila1[0]}|{self.fila1[1]}|{self.fila1[2]}|\n|{self.fila2[0]}|{self.fila2[1]}|{self.fila2[2]}|\n|{self.fila3[0]}|{self.fila3[1]}|{self.fila3[2]}|\n'
+        return f'\n|{self.fila1[0]}|{self.fila1[1]}|{self.fila1[2]}|\n|{self.fila2[0]}|{self.fila2[1]}|{self.fila2[2]}|\n|{self.fila3[0]}|{self.fila3[1]}|{self.fila3[2]}|\n'
 
 
 def jugarTateti():
-    tateti:Tateti = Tateti()
-    print('\nBIENVENIDO AL TATETI')
+    tateti: Tateti = Tateti()
+    printSlow('\n\nBIENVENIDO AL TATETI')
 
     while not tateti.termino():
-        jugador_a_mover:Tuple[str,str] = tateti.a_quien_le_toca()
+        jugador_a_mover: Tuple[str, str] = tateti.a_quien_le_toca()
         if jugador_a_mover[0] == 'Humano':
-            tateti.hacer_movimiento(jugador_a_mover,bot=False)
+            tateti.hacer_movimiento(jugador_a_mover, bot=False)
+            tateti.movimientos_j1 += 1
         else:
             tateti.movimiento_bot()
+            tateti.movimientos_j2 += 1
         print(tateti)
-    
-    ganador:str = tateti.ganador()
-    print(f'\nFELICITACIONES {ganador}, sos victorioso.')
+
+    ganador: str = tateti.ganador()
+
+    if (ganador == 'empate'):
+        printSlow('EMPATE')
+    else:
+        printSlow(f'\nFELICITACIONES "{ganador}", sos victorioso.')
+
 
 while True:
     jugarTateti()
