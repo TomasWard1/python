@@ -54,7 +54,7 @@ def escalera(n: int, d: int):
 
 
 def escalera2(d: float, k: float):
-    if d == 0:
+    if d < 0:
         return
     else:
         escalera(1, d)
@@ -88,13 +88,9 @@ def montaña_recursiva(d: float, nivel: int):
         t.left(60)
         montaña_recursiva(d/3, nivel-1)
 
-
-montaña_recursiva(200,4)
-t.right(120)
-montaña_recursiva(200,4)
-t.right(120)
-montaña_recursiva(200,4)
-
 t.speed(0)
+escalera2(20,3)
+
+
 t.mainloop()  # Siempre incluir estas dos operaciones
 t.bye()
